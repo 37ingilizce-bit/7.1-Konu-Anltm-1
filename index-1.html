@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appearance & Personality</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.3;
+            background-color: #f9f9f9;
+            padding: 10px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .main-title {
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            color: white;
+            text-align: center;
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .section-title {
+            background: #8e4585;
+            color: white;
+            text-align: center;
+            padding: 8px;
+            margin: 10px 0 8px 0;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .content-box {
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 10px;
+            background: #fefefe;
+            position: relative;
+        }
+        
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+        
+        .vocab-item {
+            text-align: center;
+            padding: 12px 8px;
+            border: 1px solid #eee;
+            border-radius: 10px;
+            background: #fafafa;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: visible;
+            cursor: pointer;
+        }
+        
+        .vocab-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            border-color: #2c5aa0;
+        }
+        
+        .vocab-item img {
+            width: 90px;
+            height: 90px;
+            object-fit: contain;
+            margin-bottom: 8px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            background: #fff;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .vocab-item img:hover {
+            transform: scale(1.05);
+            border-color: #2c5aa0;
+            box-shadow: 0 4px 12px rgba(44, 90, 160, 0.3);
+        }
+        
+        .vocab-item .english {
+            font-weight: bold;
+            color: #2c5aa0;
+            font-size: 15px;
+            margin-bottom: 4px;
+        }
+        
+        .vocab-item .turkish {
+            color: #666;
+            font-size: 13px;
+        }
+        
+        .grammar-box {
+            background: #f0f8ff;
+            border: 1px solid #cce7ff;
+            border-radius: 6px;
+            padding: 10px;
+            margin: 8px 0;
+        }
+        
+        .example {
+            background: #ffe6f0;
+            border-left: 4px solid #ff69b4;
+            padding: 6px 10px;
+            margin: 5px 0;
+            font-size: 13px;
+        }
+        
+        .example .en {
+            color: #c41e3a;
+            font-weight: bold;
+            display: inline;
+        }
+        
+        .example .tr {
+            color: #666;
+            font-style: italic;
+            display: inline;
+            margin-left: 8px;
+        }
+        
+        .personality-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+        
+        .personality-item {
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 8px;
+            text-align: center;
+            font-size: 12px;
+        }
+        
+        .personality-item.positive {
+            background: #e6f3ff;
+            border-color: #4a9eff;
+        }
+        
+        .personality-item.negative {
+            background: #ffe6f0;
+            border-color: #ff69b4;
+        }
+        
+        .personality-item .title {
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+        
+        .personality-item .title.positive {
+            color: #2c5aa0;
+        }
+        
+        .personality-item .title.negative {
+            color: #c41e3a;
+        }
+        
+        .comparative-box {
+            background: #fff8e1;
+            border: 1px solid #ffcc02;
+            border-radius: 6px;
+            padding: 10px;
+            margin: 8px 0;
+        }
+        
+        .rule {
+            background: #f0f0f0;
+            border-left: 4px solid #ff6b35;
+            padding: 8px;
+            margin: 6px 0;
+            font-size: 13px;
+        }
+        
+        .rule-number {
+            background: #ff6b35;
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        
+        .comparison-example {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 6px;
+            margin: 4px 0;
+            font-size: 12px;
+        }
+        
+        .comparison-example .word {
+            font-weight: bold;
+            color: #2c5aa0;
+        }
+        
+        .comparison-example .comparative {
+            color: #c41e3a;
+            font-weight: bold;
+        }
+
+        /* Modal styles from the first HTML */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.85);
+            backdrop-filter: blur(5px);
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            position: relative;
+            margin: auto;
+            padding: 25px;
+            width: 90%;
+            max-width: 500px;
+            top: 50%;
+            transform: translateY(-50%);
+            text-align: center;
+            animation: scaleIn 0.3s ease;
+        }
+
+        @keyframes scaleIn {
+            from { transform: translateY(-50%) scale(0.9); opacity: 0; }
+            to { transform: translateY(-50%) scale(1); opacity: 1; }
+        }
+
+        .modal img {
+            max-width: 100%;
+            max-height: 400px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border: 3px solid white;
+        }
+
+        .close {
+            color: white;
+            font-size: 32px;
+            font-weight: bold;
+            cursor: pointer;
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .close:hover {
+            color: #f72585;
+            transform: rotate(90deg);
+        }
+        
+        @media (max-width: 700px) {
+            .vocab-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            
+            .vocab-item img {
+                width: 70px;
+                height: 70px;
+            }
+            
+            .vocab-item .english {
+                font-size: 13px;
+            }
+            
+            .vocab-item .turkish {
+                font-size: 11px;
+            }
+            
+            .personality-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="main-title">
+            UNIT 1: APPEARANCE & PERSONALITY (GÖRÜNÜM VE KİŞİLİK)
+        </div>
+        
+        <div style="text-align: center; margin-bottom: 15px;">
+            
+            <button onclick="printPage()" style="background: linear-gradient(135deg, #2c5aa0, #4a9eff); color: white; border: none; padding: 10px 20px; border-radius: 6px; font-size: 14px; font-weight: bold; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2); transition: all 0.3s;">
+                🖨️ YAZDIR-KAYDET
+            </button>
+        </div>
+        
+        <div class="section-title">APPEARANCE (GÖRÜNÜM)</div>
+        
+        <div class="content-box">
+            <div class="section-title">HAIR STYLE (SAÇ STİLİ)</div>
+            <div class="vocab-grid">
+                <div class="vocab-item" onclick="openModal('1.png')">
+                    <img src="1.png" alt="straight hair" title="straight hair">
+                    <div class="english">straight hair</div>
+                    <div class="turkish">düz saç</div>
+                </div>
+                <div class="vocab-item" onclick="openModal('2.png')">
+                    <img src="2.png" alt="wavy hair" title="wavy hair">
+                    <div class="english">wavy hair</div>
+                    <div class="turkish">dalgalı saç</div>
+                </div>
+                <div class="vocab-item" onclick="openModal('3.png')">
+                    <img src="3.png" alt="curly hair" title="curly hair">
+                    <div class="english">curly hair</div>
+                    <div class="turkish">kıvırcık saç</div>
+                </div>
+                <div class="vocab-item" onclick="openModal('4.png')">
+                    <img src="4.png" alt="short hair" title="short hair">
+                    <div class="english">short hair</div>
+                    <div class="turkish">kısa saç</div>
+                </div>
+                <div class="vocab-item" onclick="openModal('5.png')">
+                    <img src="5.png" alt="long hair" title="long hair">
+                    <div class="english">long hair</div>
+                    <div class="turkish">uzun saç</div>
+                </div>
+                <div class="vocab-item" onclick="openModal('6.png')">
+                    <img src="6.png" alt="bald" title="bald">
+                    <div class="english">bald</div>
+                    <div class="turkish">kel</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-box">
+            <div class="section-title">HAIR COLOUR (SAÇ RENGİ)</div>
+            <div class="vocab-grid">
+                <div class="vocab-item" onclick="openModal('7.png')">
+                    <img src="7.png" alt="black hair" title="black hair">
+                    <div class="english">black hair</div>
+                    <div class="turkish">siyah saç</div>
+                </div>
+                <div class="vocab-item" onclick="openModal('8.png')">
+                    <img src="8.png" alt="brown hair" title="brown hair">
+                    <div class="english">brown hair</div>
+                    <div class="turkish">kahverengi saç</div>
+                </div>
+                <div class="vocab-item" onclick="openModal('9.png')">
+                    <img src="9.png" alt="blonde hair" title="blonde hair">
+                    <div class="english">blonde hair</div>
+                    <div class="turkish">sarışın saç</div>
+                </div>
+                <div class="vocab-item" onclick="openModal('10.png')">
+                    <img src="10.png" alt="ginger hair" title="ginger hair">
+                    <div class="english">ginger hair</div>
+                    <div class="turkish">kızıl saç</div>
+                </div>
+                <div class="vocab-item" onclick="openModal('11.png')">
+                    <img src="11.png" alt="fair hair" title="fair hair">
+                    <div class="english">fair hair</div>
+                    <div class="turkish">açık renk saç</div>
+                </div>
+                <div class="vocab-item" onclick="openModal('12.png')">
+                    <img src="12.png" alt="dark hair" title="dark hair">
+                    <div class="english">dark hair</div>
+                    <div class="turkish">koyu renk saç</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-box">
+            <div class="section-title">EYE COLOUR (GÖZ RENGİ)</div>
+            <div class="vocab-grid">
+                <div class="vocab-item" onclick="openModal('13.png')">
+                    <img src="13.png" alt="black eyes" title="black eyes">
+                    <div class="english">black eyes</div>
+                    <div class="turkish">siyah gözler</div>
+                </div>
+                <div class="vocab-item" onclick="openModal('14.png')">
+                    <img src="14.png" alt="brown eyes" title="brown eyes">
+                    <div class="english">brown eyes</div>
+                    <div class="turkish">kahverengi gözler</div>
+                </div>
+                <div class="vocab-item" onclick="openModal('15.png')">
+                    <img src="15.png" alt="blue eyes" title="blue eyes">
+                    <div class="english">blue eyes</div>
+                    <div class="turkish">mavi gözler</div>
+                </div>
+                <div class="vocab-item" onclick="openModal('16.png')">
+                    <img src="16.png" alt="green eyes" title="green eyes">
+                    <div class="english">green eyes</div>
+                    <div class="turkish">yeşil gözler</div>
+                </div>
+                <div class="vocab-item" onclick="openModal('17.png')">
+                    <img src="17.png" alt="hazel eyes" title="hazel eyes">
+                    <div class="english">hazel eyes</div>
+                    <div class="turkish">ela gözler</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-box">
+            <div class="section-title">HEIGHT (BOY)</div>
+            <div class="vocab-grid">
+                <div class="vocab-item" onclick="openModal('18.png')">
+                    <img src="18.png" alt="tall" title="tall">
+                    <div class="english">tall</div>
+                    <div class="turkish">uzun</div>
+                </div>
+                <div class="vocab-item" onclick="openModal('19.png')">
+                    <img src="19.png" alt="medium height" title="medium height">
+                    <div class="english">medium height</div>
+                    <div class="turkish">orta boylu</div>
+                </div>
+                <div class="vocab-item" onclick="openModal('20.png')">
+                    <img src="20.png" alt="short" title="short">
+                    <div class="english">short</div>
+                    <div class="turkish">kısa</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-box">
+            <div class="section-title">WEIGHT (KİLO)</div>
+            <div class="vocab-grid">
+                <div class="vocab-item" onclick="openModal('21.png')">
+                    <img src="21.png" alt="slim/thin" title="slim/thin">
+                    <div class="english">slim / thin</div>
+                    <div class="turkish">zayıf</div>
+                </div>
+                <div class="vocab-item" onclick="openModal('22.png')">
+                    <img src="22.png" alt="medium weight" title="medium weight">
+                    <div class="english">medium weight</div>
+                    <div class="turkish">orta kilolu</div>
+                </div>
+                <div class="vocab-item" onclick="openModal('23.png')">
+                    <img src="23.png" alt="plump" title="plump">
+                    <div class="english">plump</div>
+                    <div class="turkish">tombul</div>
+                </div>
+                <div class="vocab-item" onclick="openModal('24.png')">
+                    <img src="24.png" alt="fat" title="fat">
+                    <div class="english">fat</div>
+                    <div class="turkish">şişman</div>
+                </div>
+                <div class="vocab-item" onclick="openModal('25.png')">
+                    <img src="25.png" alt="overweight" title="overweight">
+                    <div class="english">overweight</div>
+                    <div class="turkish">fazla kilolu</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-box">
+            <div class="section-title">AGE (YAŞ)</div>
+            <div class="vocab-grid">
+                <div class="vocab-item" onclick="openModal('26.png')">
+                    <img src="26.png" alt="young" title="young">
+                    <div class="english">young</div>
+                    <div class="turkish">genç</div>
+                </div>
+                <div class="vocab-item" onclick="openModal('27.png')">
+                    <img src="27.png" alt="middle-aged" title="middle-aged">
+                    <div class="english">middle-aged</div>
+                    <div class="turkish">orta yaşlı</div>
+                </div>
+                <div class="vocab-item" onclick="openModal('28.png')">
+                    <img src="28.png" alt="old" title="old">
+                    <div class="english">old</div>
+                    <div class="turkish">yaşlı</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-box">
+            <div class="section-title">GENERAL APPEARANCE (GENEL GÖRÜNÜM)</div>
+            <div class="vocab-grid">
+                <div class="vocab-item" onclick="openModal('29.png')">
+                    <img src="29.png" alt="beautiful" title="beautiful">
+                    <div class="english">beautiful</div>
+                    <div class="turkish">güzel</div>
+                </div>
+                <div class="vocab-item" onclick="openModal('30.png')">
+                    <img src="30.png" alt="handsome" title="handsome">
+                    <div class="english">handsome</div>
+                    <div class="turkish">yakışıklı</div>
+                </div>
+                <div class="vocab-item" onclick="openModal('31.png')">
+                    <img src="31.png" alt="cute" title="cute">
+                    <div class="english">cute</div>
+                    <div class="turkish">sevimli</div>
+                </div>
+                <div class="vocab-item" onclick="openModal('32.png')">
+                    <img src="32.png" alt="attractive" title="attractive">
+                    <div class="english">attractive</div>
+                    <div class="turkish">çekici</div>
+                </div>
+                <div class="vocab-item" onclick="openModal('33.png')">
+                    <img src="33.png" alt="well-built" title="well-built">
+                    <div class="english">well-built</div>
+                    <div class="turkish">kaslı</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-box">
+            <div class="section-title">OTHER WORDS (DİĞER KELİMELER)</div>
+            <div class="vocab-grid">
+                <div class="vocab-item" onclick="openModal('34.png')">
+                    <img src="34.png" alt="glasses" title="glasses">
+                    <div class="english">glasses</div>
+                    <div class="turkish">gözlük</div>
+                </div>
+                <div class="vocab-item" onclick="openModal('35.png')">
+                    <img src="35.png" alt="hat" title="hat">
+                    <div class="english">hat</div>
+                    <div class="turkish">şapka</div>
+                </div>
+                <div class="vocab-item" onclick="openModal('36.png')">
+                    <img src="36.png" alt="headscarf" title="headscarf">
+                    <div class="english">headscarf</div>
+                    <div class="turkish">baş örtüsü</div>
+                </div>
+                <div class="vocab-item" onclick="openModal('37.png')">
+                    <img src="37.png" alt="beard" title="beard">
+                    <div class="english">beard</div>
+                    <div class="turkish">sakal</div>
+                </div>
+                <div class="vocab-item" onclick="openModal('38.png')">
+                    <img src="38.png" alt="moustache" title="moustache">
+                    <div class="english">moustache</div>
+                    <div class="turkish">bıyık</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grammar-box">
+            <h4 style="color: #2c5aa0; margin-bottom: 8px;">HAVE GOT/HAS GOT Yapısı</h4>
+            <p style="font-size: 13px; margin-bottom: 6px;">
+                Fiziksel özellikler (saç, göz, sakal vb.) için <strong>"have got / has got"</strong> yapısı tercih edilir. "Sahip olmak" anlamındadır.
+            </p>
+            
+            <div class="example">
+                <div class="en">▸ My brother has got curly red hair. <span class="tr">(Kardeşimin kıvırcık kızıl saçları var.)</span></div>
+            </div>
+            
+            <div class="example">
+                <div class="en">▸ We have got the same green eyes. <span class="tr">(Bizim aynı yeşil gözlerimiz var.)</span></div>
+            </div>
+        </div>
+
+        <div class="grammar-box">
+            <h4 style="color: #2c5aa0; margin-bottom: 8px;">BE FİİLİ (AM/IS/ARE) Kullanımı</h4>
+            <p style="font-size: 13px; margin-bottom: 6px;">
+                Boy, kilo, yaş ve genel görünüm tanımlamalarında <strong>"am / is / are"</strong> fiili kullanılır.
+            </p>
+            
+            <div class="example">
+                <div class="en">▸ My sister is very tall and athletic. <span class="tr">(Kız kardeşim çok uzun boylu ve atletik.)</span></div>
+            </div>
+            
+            <div class="example">
+                <div class="en">▸ They are medium height but quite strong. <span class="tr">(Onlar orta boylu ama oldukça güçlü.)</span></div>
+            </div>
+        </div>
+
+        <div class="section-title">PERSONALITY (KİŞİLİK)</div>
+        
+        <div class="content-box">
+            <div class="personality-grid">
+                <div class="personality-item positive">
+                    <div class="title positive">clever / smart : zeki</div>
+                    <div>• She solves math problems easily. (O matematik problemlerini kolayca çözer.)</div>
+                </div>
+                
+                <div class="personality-item negative">
+                    <div class="title negative">lazy : tembet</div>
+                    <div>• She doesn't like studying. (O ders çalışmayı sevmez.)</div>
+                </div>
+                
+                <div class="personality-item positive">
+                    <div class="title positive">hardworking : çalışkan</div>
+                    <div>• He stays late to finish his project. (Projesini bitirmek için geç saatlere kadar kalır.)</div>
+                </div>
+                
+                <div class="personality-item negative">
+                    <div class="title negative">selfish : bencil</div>
+                    <div>• She doesn't like sharing. (O paylaşmayı sevmez.)</div>
+                </div>
+                
+                <div class="personality-item positive">
+                    <div class="title positive">generous : cömert</div>
+                    <div>• He buys presents. (O hediyeler alır.)</div>
+                </div>
+                
+                <div class="personality-item negative">
+                    <div class="title negative">rude : kaba</div>
+                    <div>• She uses bad words. (O kötü kelimeler kullanır.)</div>
+                </div>
+                
+                <div class="personality-item positive">
+                    <div class="title positive">helpful : yardımsever</div>
+                    <div>• He helps people. (O insanlara yardım eder.)</div>
+                </div>
+                
+                <div class="personality-item negative">
+                    <div class="title negative">stubborn : inatçı</div>
+                    <div>• He never changes mind. (O asla fikrini değiştirmez.)</div>
+                </div>
+                
+                <div class="personality-item positive">
+                    <div class="title positive">punctual : dakik</div>
+                    <div>• She arrives on time. (O zamanında varır.)</div>
+                </div>
+                
+                <div class="personality-item negative">
+                    <div class="title negative">clumsy : sakar</div>
+                    <div>• He breaks things. (O bir şeyleri kırar.)</div>
+                </div>
+                
+                <div class="personality-item positive">
+                    <div class="title positive">cheerful : neşeli</div>
+                    <div>• He always smiles. (O her zaman gülümser.)</div>
+                </div>
+                
+                <div class="personality-item negative">
+                    <div class="title negative">serious : ciddi</div>
+                    <div>• She rarely smiles. (O nadiren gülümser.)</div>
+                </div>
+                
+                <div class="personality-item positive">
+                    <div class="title positive">outgoing : sosyal</div>
+                    <div>• She has many friends. (O çok arkadaşa sahiptir.)</div>
+                </div>
+                
+                <div class="personality-item negative">
+                    <div class="title negative">shy : utangaç</div>
+                    <div>• She doesn't talk much. (O çok konuşmaz.)</div>
+                </div>
+                
+                <div class="personality-item positive">
+                    <div class="title positive">friendly : arkadaş canlısı</div>
+                    <div>• He makes friends easily. (O kolayca arkadaş edinir.)</div>
+                </div>
+                
+                <div class="personality-item negative">
+                    <div class="title negative">quiet : sessiz</div>
+                    <div>• She doesn't like talking. (O konuşmayı sevmez.)</div>
+                </div>
+                
+                <div class="personality-item positive">
+                    <div class="title positive">honest : dürüst</div>
+                    <div>• She tells the truth. (O doğruyu söyler.)</div>
+                </div>
+                
+                <div class="personality-item positive">
+                    <div class="title positive">polite / kind : kibar</div>
+                    <div>• He thinks of others. (O başkalarını düşünür.)</div>
+                </div>
+                
+                <div class="personality-item positive">
+                    <div class="title positive">easy-going : uyumlu</div>
+                    <div>• She gets on well with me. (O benimle iyi geçinir.)</div>
+                </div>
+                
+                <div class="personality-item positive">
+                    <div class="title positive">funny : komik</div>
+                    <div>• He always makes jokes. (O her zaman şaka yapar.)</div>
+                </div>
+                
+                <div class="personality-item positive">
+                    <div class="title positive">talkative : konuşkan</div>
+                    <div>• She likes talking. (O konuşmayı sever.)</div>
+                </div>
+                
+                <div class="personality-item positive">
+                    <div class="title positive">crazy : çılgın</div>
+                    <div>• He does crazy things. (O çılgınca şeyler yapar.)</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grammar-box">
+            <h4 style="color: #2c5aa0; margin-bottom: 8px;">Kişilik Özellikleri Hakkında Soru Sorma</h4>
+            <p style="font-size: 13px; margin-bottom: 6px;">
+                Birinin kişilik özellikleri hakkında bilgi almak için <strong>"What do/does ... look like?"</strong> (nasıl görünür?) 
+                ve <strong>"What am/is/are ... like?"</strong> (nasıl birisi?) sorularını kullanırız.
+            </p>
+            
+            <div style="background: #e8f4fd; border: 1px solid #b3d9ff; border-radius: 8px; padding: 10px; margin: 8px 0;">
+                <div style="color: #1976d2; font-weight: bold; font-size: 14px; margin-bottom: 6px;">📋 What do/does ... look like?</div>
+                
+                <div class="example">
+                    <div class="en">▸ What does your mother look like? <span class="tr">(Annen nasıl görünüyor?)</span></div>
+                </div>
+                <div class="example">
+                    <div class="en">▸ She is tall and slim with dark hair. <span class="tr">(O uzun boylu ve zayıf, koyu saçlı.)</span></div>
+                </div>
+                
+                <div class="example">
+                    <div class="en">▸ What does your sister look like? <span class="tr">(Kız kardeşin nasıl görünüyor?)</span></div>
+                </div>
+                <div class="example">
+                    <div class="en">▸ She has got wavy hair and blue eyes. <span class="tr">(Onun dalgalı saçları ve mavi gözleri var.)</span></div>
+                </div>
+            </div>
+
+            <div style="background: #fff3e0; border: 1px solid #ffcc80; border-radius: 8px; padding: 10px; margin: 8px 0;">
+                <div style="color: #f57c00; font-weight: bold; font-size: 14px; margin-bottom: 6px;">👤 What am/is/are ... like?</div>
+                
+                <div class="example">
+                    <div class="en">▸ What is your mother like? <span class="tr">(Annen nasıl birisi?)</span></div>
+                </div>
+                <div class="example">
+                    <div class="en">▸ She is friendly and talkative. <span class="tr">(O arkadaş canlısı ve konuşkan.)</span></div>
+                </div>
+                
+                <div class="example">
+                    <div class="en">▸ What are you like? <span class="tr">(Sen nasıl birisin?)</span></div>
+                </div>
+                <div class="example">
+                    <div class="en">▸ I am helpful and generous. <span class="tr">(Ben yardımsever ve cömertim.)</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-title">COMPARATIVE ADJECTIVES (KARŞILAŞTIRMA SIFATLARI)</div>
+        
+        <div class="comparative-box">
+            <p style="font-size: 13px; margin-bottom: 8px;">
+                Herhangi iki şeyi veya iki kişiyi karşılaştırırken, karşılaştırma yapacağımız sıfatların <strong>"comparative"</strong> 
+                (karşılaştırma) hallerini kullanırız. Sıfatların karşılaştırma halleri belli kurallar uygulanarak elde edilir.
+            </p>
+            
+            <div class="section-title">ONE SYLLABLE ADJECTIVES (TEK HECELİ SIFATLAR)</div>
+            
+            <div class="rule">
+                <span class="rule-number">1</span>
+                Tek heceli olan sıfatlarda karşılaştırma yaparken sıfatın sonuna <strong>-er</strong> takısı eklenir.
+            </div>
+            
+            <div class="comparison-example">
+                <span class="word">tall</span> → <span class="comparative">taller</span>
+            </div>
+            
+            <div class="rule">
+                <span class="rule-number">2</span>
+                Tek heceli olan ve "e" harfi ile biten sıfatların sonuna <strong>-r</strong> takısı eklenir.
+            </div>
+            
+            <div class="comparison-example">
+                <span class="word">cute</span> → <span class="comparative">cuter</span>
+            </div>
+            
+            <div class="rule">
+                <span class="rule-number">3</span>
+                Son üç harfi "sessiz-sesli-sessiz" harf ile biten sıfatlarda, son harf tekrar edilerek <strong>-er</strong> takısı eklenir.
+            </div>
+            
+            <div class="comparison-example">
+                <span class="word">fat</span> → <span class="comparative">fatter</span>
+            </div>
+            
+            <div class="rule">
+                <span class="rule-number">4</span>
+                Bazı sıfatlar düzensizdir. Takı eklenmez. Karşılaştırma hallerini ezberlememiz gerekir.
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 8px 0;">
+                <div class="comparison-example">
+                    <span class="word">good</span> → <span class="comparative">better</span>
+                </div>
+                <div class="comparison-example">
+                    <span class="word">bad</span> → <span class="comparative">worse</span>
+                </div>
+                <div class="comparison-example">
+                    <span class="word">little</span> → <span class="comparative">less</span>
+                </div>
+                <div class="comparison-example">
+                    <span class="word">far</span> → <span class="comparative">farther</span>
+                </div>
+                <div class="comparison-example">
+                    <span class="word">much/many</span> → <span class="comparative">more</span>
+                </div>
+            </div>
+            
+            <div class="section-title">TWO OR MORE SYLLABLE ADJECTIVES (İKİ VEYA DAHA FAZLA HECELİ SIFATLAR)</div>
+            
+            <div class="rule">
+                <span class="rule-number">1</span>
+                Sonu "sessiz harf+y" ile biten sıfatlarda, y harfi düşürülür, yerine <strong>-ier</strong> eki eklenir.
+            </div>
+            
+            <div class="comparison-example">
+                <span class="word">lazy</span> → <span class="comparative">lazier</span>
+            </div>
+            
+            <div class="rule">
+                <span class="rule-number">2</span>
+                İki veya daha fazla heceli sıfatların önüne <strong>"more"</strong> (daha fazla) veya <strong>"less"</strong> (daha az) kelimeleri getirilir.
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 8px 0;">
+                <div class="comparison-example">
+                    <span class="word">handsome</span> → <span class="comparative">more handsome</span>
+                </div>
+                <div class="comparison-example">
+                    <span class="word">attractive</span> → <span class="comparative">less attractive</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="grammar-box">
+            <h4 style="color: #2c5aa0; margin-bottom: 8px;">THAN ile Karşılaştırma</h4>
+            <p style="font-size: 13px; margin-bottom: 6px;">
+                Karşılaştırma yaparken, cümlede karşılaştırma sıfatından sonra <strong>"than"</strong> (-den, -dan) ifadesini kullanırız.
+            </p>
+            
+            <div class="example">
+                <div class="en">▸ My mother is older than my father. <span class="tr">(Annem, babamdan daha yaşlıdır.)</span></div>
+            </div>
+            
+            <div class="example">
+                <div class="en">▸ I am slimmer than my sister. <span class="tr">(Ben, kız kardeşimden daha zayıfım.)</span></div>
+            </div>
+            
+            <div class="example">
+                <div class="en">▸ Melih is lazier than Furkan. <span class="tr">(Melih, Furkan'dan daha tembeldir.)</span></div>
+            </div>
+            
+            <div class="example">
+                <div class="en">▸ David is more generous than Tina. <span class="tr">(David, Tina'dan daha cömerttir.)</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal from the first HTML -->
+    <div id="imageModal" class="modal" onclick="closeModal()">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <img id="modalImage" src="" alt="Enlarged image">
+        </div>
+    </div>
+
+    <script>
+        // Modal functions from the first HTML
+        function openModal(imagePath) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            modal.style.display = 'block';
+            modalImg.src = imagePath;
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('imageModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when pressing Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Prevent modal from closing when clicking on the image
+        document.querySelector('.modal-content').addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+
+        // Print function
+        function printPage() {
+            closeModal(); // Close modal if open before printing
+            
+            setTimeout(() => {
+                window.print();
+            }, 100);
+        }
+
+        // Button hover effects
+        document.addEventListener('DOMContentLoaded', function() {
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach(button => {
+                button.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-2px)';
+                    this.style.boxShadow = '0 4px 8px rgba(0,0,0,0.3)';
+                });
+                
+                button.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = '0 2px 5px rgba(0,0,0,0.2)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
